@@ -10,13 +10,9 @@ window.addEventListener('keydown', function (e) {
     if (e.keyCode == 87 && gamesession) {
         bars.one.key = 'up';
     }
-    if (e.keyCode == 65 && gamesession) {
-        bars.one.key = 'left';
+    if (e.keyCode == 83 && gamesession) {
+        bars.one.key = 'down';
     }
-    if (e.keyCode == 68 && gamesession) {
-        bars.one.key = 'right';
-    }
-
 });
 
 window.addEventListener('keydown', function (e) {
@@ -25,13 +21,9 @@ window.addEventListener('keydown', function (e) {
     if (e.keyCode == 38 && gamesession) {
         bars.two.key = 'up';
     }
-    if (e.keyCode == 37 && gamesession) {
-        bars.two.key = 'left';
+    if (e.keyCode == 40 && gamesession) {
+        bars.two.key = 'down';
     }
-    if (e.keyCode == 39 && gamesession) {
-        bars.two.key = 'right';
-    }
-
 });
 
 
@@ -45,9 +37,6 @@ window.addEventListener('keyup', function (e) {
     if (e.keyCode == 83 && gamesession) {
         bars.one.key = false; //down
     }
-    if (e.keyCode == 68 && gamesession) {
-        bars.one.key = false;
-    }
 });
 
 window.addEventListener('keyup', function (e) {
@@ -56,10 +45,7 @@ window.addEventListener('keyup', function (e) {
     if (e.keyCode == 38 && gamesession) {
         bars.two.key = false;
     }
-    if (e.keyCode == 37 && gamesession) {
-        bars.two.key = false;
-    }
-    if (e.keyCode == 39 && gamesession) {
+    if (e.keyCode == 40 && gamesession) {
         bars.two.key = false;
     }
 });
