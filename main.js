@@ -32,9 +32,19 @@ function Bar(player) {
 
     //key press
     this.key = false;
+
+    this.draw = () => {
+        ctx.fillStyle = "white";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    this.move = () => {
+        this.x += this.dx;
+        this.y += this.dy;
+    }
 }
 
-function Ball () {
+function Ball() {
 
     //position
     this.x = gamecanvas.width / 2;
@@ -46,16 +56,41 @@ function Ball () {
     //velocity
     var dx = Math.random() * 10;
     var dy = Math.random() * 10;
-    
+
     this.dx = (dx == 0 ? dx++ : dx);
     this.dy = (dy == 1 ? dy-- : dy);
 
 
+    this.draw = () => {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = "white";
+        ctx.fill();
+    }
+
+    this.move = () => {
+        this.x += this.dx;
+        this.y += this.dy;
+    }
 }
 
 function StartGame() {
+    //create the players' bars
     bars.one = new Bar("one");
     bars.two = new Bar("two");
 
+    //create the ball
+    ball = new Ball();
 
+    GamePlay();
+}
+
+function GamePlay() {
+    
+    //clear the canvas
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, gamecanvas.width, gamecanvas.height);
+
+    
 }
