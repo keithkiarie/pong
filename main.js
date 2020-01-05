@@ -9,3 +9,4 @@ function Bar(player) {
 
     this.key = false;
 }
+
