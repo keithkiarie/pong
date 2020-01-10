@@ -44,8 +44,8 @@ function Bar(player) {
     }
 
     this.move = () => {
-        this.key == "up" ? this.dy = 5 : this.dy;
-        this.key == "down" ? this.dy = -5 : this.dy;
+        this.key == "up" ? this.dy = -5 : this.dy;
+        this.key == "down" ? this.dy = 5 : this.dy;
         this.key == false ? this.dy = 0 : this.dy;
 
         this.x += this.dx;
@@ -111,12 +111,15 @@ function Ball() {
 }
 
 function StartGame() {
+
     //create the players' bars
     bars.one = new Bar("one");
     bars.two = new Bar("two");
 
     //create the ball
     ball = new Ball();
+
+    gamesession = true;
 
     GamePlay();
 }
@@ -140,12 +143,12 @@ function collision() {
         ball.dy = -ball.dy;
     }
 
-    if (ball.left_edge() <= bars.one.width && ball.y >= bars.one.y && ball.y <= bars.one.y) {
-        ball.x = -ball.x;
+    if (ball.left_edge() <= bars.one.width && ball.y >= bars.one.y && ball.y <= bars.one.y + bars.one.height) {
+        ball.dx = -ball.dx;
     }
 
-    if (ball.right_edge() >= bars.two.x && ball.y >= bars.two.y && ball.y <= bars.two.y) {
-        ball.x = -ball.x;
+    if (ball.right_edge() >= bars.two.x && ball.y >= bars.two.y && ball.y <= bars.two.y + bars.two.height) {
+        ball.dx = -ball.dx;
     }
 }
 
