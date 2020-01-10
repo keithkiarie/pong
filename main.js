@@ -127,6 +127,7 @@ function GamePlay() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, gamecanvas.width, gamecanvas.height);
 
+    collision();
     ball.sequence();
     bars.one.sequence();
     bars.two.sequence();
@@ -135,8 +136,16 @@ function GamePlay() {
 }
 
 function collision() {
-    if (ball.x) {
-        
+    if (ball.top() <= 3 || ball.bottom() >= gamecanvas.height - 3) {
+        ball.dy = -ball.dy;
+    }
+
+    if (ball.left_edge() <= bars.one.width && ball.y >= bars.one.y && ball.y <= bars.one.y) {
+        ball.x = -ball.x;
+    }
+
+    if (ball.right_edge() >= bars.two.x && ball.y >= bars.two.y && ball.y <= bars.two.y) {
+        ball.x = -ball.x;
     }
 }
 
