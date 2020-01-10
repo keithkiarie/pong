@@ -50,6 +50,10 @@ function Bar(player) {
 
         this.x += this.dx;
         this.y += this.dy;
+
+        //keep the bar within the screen
+        if (this.y < 0) this.y = 0;
+        if (this.y + this.height > gamecanvas.height) this.y = gamecanvas.height - this.height; 
     }
 
     this.sequence = () => {
