@@ -1,18 +1,23 @@
-let bar_info = {
-    width: 20,
-    height: 5,
 
-    position = {
-        one = {
-            x: 0,
-            y: gamecanvas.height / 2 - bar_info.height / 2
-        },
-        two = {
-            x: gamecanvas.width - bar_info.width,
-            y: gamecanvas.height / 2 - bar_info.height / 2
-        }
+let bar_info = {
+    width: 15,
+    height: 95,
+
+    position: {}
+}
+
+bar_info.position = {
+    one: {
+        x: 0,
+        y: gamecanvas.height / 2 - bar_info.height / 2
+    },
+    two: {
+        x: gamecanvas.width - bar_info.width,
+        y: gamecanvas.height / 2 - bar_info.height / 2
     }
 }
+
+
 
 function Bar(player) {
     this.player = player;
@@ -39,8 +44,17 @@ function Bar(player) {
     }
 
     this.move = () => {
+        this.key == "up" ? this.dy = 5 : this.dy;
+        this.key == "down" ? this.dy = -5 : this.dy;
+        this.key == false ? this.dy = 0 : this.dy;
+
         this.x += this.dx;
         this.y += this.dy;
+    }
+
+    this.sequence = () => {
+        this.move();
+        this.draw();
     }
 }
 
@@ -51,6 +65,22 @@ function Ball() {
     this.y = gamecanvas.height / 2;
 
     this.radius = 10;
+
+    this.bottom = () => {
+        return this.y + this.radius;
+    }
+    
+    this.top = () => {
+        return this.y - this.radius;
+    }
+
+    this.right_edge = () => {
+        return this.x + this.radius;
+    }
+
+    this.left_edge = () => {
+        return this.x - this.radius;
+    }
 
 
     //velocity
@@ -73,6 +103,11 @@ function Ball() {
         this.x += this.dx;
         this.y += this.dy;
     }
+
+    this.sequence = () => {
+        this.move();
+        this.draw();
+    }
 }
 
 function StartGame() {
@@ -87,10 +122,22 @@ function StartGame() {
 }
 
 function GamePlay() {
-    
+
     //clear the canvas
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, gamecanvas.width, gamecanvas.height);
 
-    
+    ball.sequence();
+    bars.one.sequence();
+    bars.two.sequence();
+
+    requestAnimationFrame(GamePlay);
 }
+
+function collision() {
+    if (ball.x) {
+        
+    }
+}
+
+StartGame();
