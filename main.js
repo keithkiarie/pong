@@ -1,3 +1,4 @@
+let bar_speed = 8;
 
 let bar_info = {
     width: 15,
@@ -44,8 +45,8 @@ function Bar(player) {
     }
 
     this.move = () => {
-        if (this.key == "up") this.dy = -5;
-        if (this.key == "down") this.dy = 5;
+        if (this.key == "up") this.dy = -bar_speed;
+        if (this.key == "down") this.dy = bar_speed;
         if (this.key == false) this.dy = 0;
 
         this.x += this.dx;
