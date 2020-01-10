@@ -107,6 +107,8 @@ function Ball() {
     this.move = () => {
         this.x += this.dx;
         this.y += this.dy;
+
+        if (this.right_edge() < -5 || this.left_edge() > gamecanvas.width + 5) gamesession = false;
     }
 
     this.sequence = () => {
@@ -140,7 +142,13 @@ function GamePlay() {
     bars.one.sequence();
     bars.two.sequence();
 
-    requestAnimationFrame(GamePlay);
+    if (gamesession) {
+        requestAnimationFrame(GamePlay);
+    } else {
+        setTimeout(() => {
+            StartGame();
+        }, 2000);
+    }
 }
 
 function collision() {
