@@ -44,9 +44,9 @@ function Bar(player) {
     }
 
     this.move = () => {
-        this.key == "up" ? this.dy = -5 : this.dy;
-        this.key == "down" ? this.dy = 5 : this.dy;
-        this.key == false ? this.dy = 0 : this.dy;
+        if (this.key == "up") this.dy = -5;
+        if (this.key == "down") this.dy = 5;
+        if (this.key == false) this.dy = 0;
 
         this.x += this.dx;
         this.y += this.dy;
