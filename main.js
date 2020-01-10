@@ -92,7 +92,7 @@ function Ball() {
     var dx = Math.random() * 10;
     var dy = Math.random() * 10;
 
-    this.dx = (dx == 0 ? dx++ : dx);
+    this.dx = (dx < 2 ? dx++ : dx);
     this.dy = (dy == 1 ? dy-- : dy);
 
 
