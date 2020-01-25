@@ -117,7 +117,9 @@ function Ball() {
     }
 }
 
+let counter = 0;
 function StartGame() {
+
 
     //create the players' bars
     bars.one = new Bar("one");
@@ -134,11 +136,18 @@ function StartGame() {
         ball.dx = 5;
     }
 
+    counter = 0;
     GamePlay();
 }
 
 function GamePlay() {
 
+    counter++; 
+
+    if (counter % 300 == 0) {
+        ball.dx *= 1.25;
+        ball.dy *= 1.25;
+    }
     //clear the canvas
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, gamecanvas.width, gamecanvas.height);
