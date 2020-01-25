@@ -128,6 +128,12 @@ function StartGame() {
 
     gamesession = true;
 
+    //start with a specified speed
+    if (ball.dx != 5) {
+        ball.dy = (5 / ball.dx) * ball.dy;
+        ball.dx = 5;
+    }
+
     GamePlay();
 }
 
