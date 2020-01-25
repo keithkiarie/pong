@@ -92,9 +92,9 @@ function Ball() {
     var dx = Math.random() * 10;
     var dy = Math.random() * 10;
 
-    this.dx = (dx < 2 ? dx++ : dx);
-    this.dy = (dy == 1 ? dy-- : dy);
-
+    //no steep angles
+    this.dy = (dy / dx > 2.5) ? (dx * 2.4) : dy;
+    this.dx = (dy / dx < 0.1) ? (dy * 0.1) : dx;
 
     this.draw = () => {
         ctx.beginPath();
@@ -135,6 +135,8 @@ function StartGame() {
         ball.dy = (5 / ball.dx) * ball.dy;
         ball.dx = 5;
     }
+
+    console.log(ball.dy / ball.dx);
 
     counter = 0;
     GamePlay();
