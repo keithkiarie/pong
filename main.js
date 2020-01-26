@@ -19,6 +19,23 @@ bar_info.position = {
 }
 
 
+function HomePage() {
+    //clear the canvas
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, gamecanvas.width, gamecanvas.height);
+
+    ctx.font = "30px Arial";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#FFFFFF";
+
+    ctx.fillText("Pong", gamecanvas.width / 2, gamecanvas.height * 0.1);
+
+    ctx.font = "20px Arial";
+    ctx.fillText("Press s for Single Player", gamecanvas.width / 5, gamecanvas.height * 0.3);
+    ctx.fillText("Press t for Two Player", gamecanvas.width / 5, gamecanvas.height * 0.4);
+}
+
+
 
 function Bar(player) {
     this.player = player;
@@ -54,7 +71,7 @@ function Bar(player) {
 
         //keep the bar within the screen
         if (this.y < 0) this.y = 0;
-        if (this.y + this.height > gamecanvas.height) this.y = gamecanvas.height - this.height; 
+        if (this.y + this.height > gamecanvas.height) this.y = gamecanvas.height - this.height;
     }
 
     this.sequence = () => {
@@ -74,7 +91,7 @@ function Ball() {
     this.bottom = () => {
         return this.y + this.radius;
     }
-    
+
     this.top = () => {
         return this.y - this.radius;
     }
@@ -108,7 +125,10 @@ function Ball() {
         this.x += this.dx;
         this.y += this.dy;
 
-        if (this.right_edge() < -5 || this.left_edge() > gamecanvas.width + 5) gamesession = false;
+        //single player
+        if (player_mode == 1 && (this.right_edge() < -5 || this.left_edge() > gamecanvas.width + 5)) gamesession = false;
+
+        if (player_mode == 2 && (this.right_edge() < -5)) gamesession = false;
     }
 
     this.sequence = () => {
@@ -120,10 +140,10 @@ function Ball() {
 let counter = 0;
 function StartGame() {
 
-
     //create the players' bars
     bars.one = new Bar("one");
-    bars.two = new Bar("two");
+    if (player_mode == 2) { bars.two = new Bar("two"); }
+
 
     //create the ball
     ball = new Ball();
@@ -136,15 +156,13 @@ function StartGame() {
         ball.dx = 5;
     }
 
-    console.log(ball.dy / ball.dx);
-
     counter = 0;
     GamePlay();
 }
 
 function GamePlay() {
 
-    counter++; 
+    counter++;
 
     if (counter % 300 == 0) {
         ball.dx *= 1.25;
@@ -156,30 +174,37 @@ function GamePlay() {
 
     collision();
     ball.sequence();
+
+
     bars.one.sequence();
-    bars.two.sequence();
+    if (player_mode == 2) { bars.two.sequence(); }
+
+
 
     if (gamesession) {
         requestAnimationFrame(GamePlay);
     } else {
         setTimeout(() => {
-            StartGame();
-        }, 2000);
+            HomePage();
+        }, 1000);
     }
 }
 
 function collision() {
-    if (ball.top() <= 3 || ball.bottom() >= gamecanvas.height - 3) {
-        ball.dy = -ball.dy;
+    if (ball.top() <= 3 || ball.bottom() >= gamecanvas.height - 3) ball.dy = -ball.dy;
+
+    //single player
+    if (ball.left_edge() <= bars.one.width && ball.y >= bars.one.y && ball.y <= bars.one.y + bars.one.height) ball.dx = -ball.dx;
+    
+    //bounce off right wall
+    if (player_mode == 1 && ball.right_edge() > gamecanvas.width) ball.dx = -ball.dx;
+    
+
+    if (player_mode == 2) {
+        if (ball.right_edge() >= bars.two.x && ball.y >= bars.two.y && ball.y <= bars.two.y + bars.two.height) ball.dx = -ball.dx;
     }
 
-    if (ball.left_edge() <= bars.one.width && ball.y >= bars.one.y && ball.y <= bars.one.y + bars.one.height) {
-        ball.dx = -ball.dx;
-    }
-
-    if (ball.right_edge() >= bars.two.x && ball.y >= bars.two.y && ball.y <= bars.two.y + bars.two.height) {
-        ball.dx = -ball.dx;
-    }
 }
 
-StartGame();
+
+HomePage();

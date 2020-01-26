@@ -1,9 +1,16 @@
 //listen for keyboard input
 
 window.addEventListener('keydown', function (e) {
-    if (e.keyCode == 32 && !gamesession) {
-        //space bar to begin game
-
+    
+    if (e.keyCode == 83 && !gamesession) {
+        //key "s" for single player mode
+        player_mode = 1;
+        StartGame();
+    }
+    if (e.keyCode == 84 && !gamesession) {
+        //key "t" for two player mode
+        player_mode = 2
+        StartGame();
     }
 
     //player one keydown
